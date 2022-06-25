@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.udacity.viewmodels.MainViewModel" />
+        <variable
+            name="constants"
+            type="com.udacity.utilities.Constants" />
+
+        <import type="android.view.View"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".activites.MainActivity"
+        tools:showIn="@layout/activity_main">
+
+        <ImageView
+            android:id="@+id/downloadImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@color/colorPrimaryDark"
+            android:src="@drawable/ic_baseline_cloud_download_24"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/start_end_spacing"
+            android:layout_marginRight="@dimen/start_end_spacing"
+            app:layout_constraintBottom_toTopOf="@id/custom_button"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/downloadImage"
+            app:layout_constraintVertical_bias="0.25">
+
+            <RadioButton
+                style="@style/RadioButtonList"
+                android:id="@+id/glideRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/radio_item_spacing"
+                android:onClick="@{() -> viewModel.setDownloadUrl(constants.GLIDE_URL, @string/glide_radio_title, false)}"
+                android:text="@string/glide_radio_title" />
+
+            <RadioButton
+                android:id="@+id/loadAppRadioButton"
+                style="@style/RadioButtonList"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/radio_item_spacing"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.setDownloadUrl(constants.LOADAPP_URL, @string/loadapp_radio_title, false)}"
+                android:text="@string/loadapp_radio_title" />
+
+            <RadioButton
+                android:id="@+id/retrofitRadioButton"
+                android:layout_width="wrap_content"
+                style="@style/RadioButtonList"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/radio_item_spacing"
+                android:onClick="@{() -> viewModel.setDownloadUrl(constants.RETROFIT_URL, @string/retrofit_radio_title, false)}"
+                android:text="@string/retrofit_radio_title" />
+
+            <RadioButton
+                android:id="@+id/customUrlRadioButton"
+                android:layout_width="wrap_content"
+                style="@style/RadioButtonList"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.setDownloadUrl(constants.CUSTOM_URL, viewModel.customUrlString, true)}"
+                android:text="@string/custumUrl" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/customUrlEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/start_end_spacing"
+            android:layout_marginEnd="@dimen/start_end_spacing"
+            android:hint="@string/enter_url"
+            android:inputType="textUri"
+            android:text="@={viewModel.customUrlString}"
+            android:visibility="@{viewModel.customUrlRadioButton ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radioGroup" />
+
+
+        <com.udacity.objects.LoadingButton
+            android:id="@+id/custom_button"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            style="@style/RadioButtonList"
+            android:layout_margin="@dimen/start_end_spacing"
+            app:buttonBackgroundColor="@color/colorPrimary"
+            app:buttonLoadingColor="@color/colorPrimaryDark"
+            app:circleColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="549dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
